@@ -107,6 +107,11 @@ def process_record(rec: Dict[str, Any]) -> List[Dict[str, Any]]:
         return []
     soup = BeautifulSoup(html, "html.parser")
 
+    # Remove end-notes section so its content is not merged into the
+    # preceding section during h2 sibling traversal.
+    for tag in soup.find_all(attrs={"role": "doc-endnotes"}):
+        tag.decompose()
+
     # Title – first <h1>
     title_tag = soup.find("h1")
     title = clean_text(title_tag.get_text(separator=' ')) if title_tag else ""
