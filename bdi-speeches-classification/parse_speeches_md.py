@@ -59,13 +59,13 @@ def extract_figure_md(fig) -> str:
     The block includes alt text, figcaption, notes (``.fig-notes``) and
     description (``.fig-desc``) if present.
     """
-    parts: List[str] = []
-    img = fig.find("img")
-    if img and img.get("alt"):
-        parts.append(f"**Alt text:** {clean_text(img['alt'])}")
+    parts: List[str] = []    
     cap = fig.find("figcaption")
     if cap:
         parts.append(f"**Caption:** {clean_text(cap.get_text(separator=' '))}")
+    img = fig.find("img")
+    if img and img.get("alt"):
+        parts.append(f"**Alt text:** {clean_text(img['alt'])}")
     notes = fig.select_one('.fig-notes')
     if notes:
         parts.append(f"**Notes:** {clean_text(notes.get_text(separator=' '))}")
