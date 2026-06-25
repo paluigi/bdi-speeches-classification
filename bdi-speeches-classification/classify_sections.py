@@ -125,12 +125,12 @@ def main() -> None:
     # 4. Classify and write results incrementally
     # ------------------------------------------------------------------
     fieldnames = ["id", *labels, "best_label", "word_count", "title"]
-    file_exists = OUTPUT_CSV.is_file()
+    needs_header = not OUTPUT_CSV.is_file() or OUTPUT_CSV.stat().st_size == 0
 
     with open(OUTPUT_CSV, "a", newline="", encoding="utf-8") as fh:
         writer = csv.DictWriter(fh, fieldnames=fieldnames)
 
-        if not file_exists:
+        if needs_header:
             writer.writeheader()
 
         for i, rec in enumerate(to_classify):
