@@ -32,7 +32,7 @@ from tinydb import TinyDB
 SOURCE_DB = Path("banca_ditalia_speeches_md.json")
 CATEGORIES_TSV = Path("categories.tsv")
 OUTPUT_CSV = Path("speeches_classified.csv")
-MODEL = "gemma4:31b-it-q8_0"
+MODEL = "qwen3.6:latest"
 
 
 def load_categories(tsv_path: Path) -> Dict[str, str]:
