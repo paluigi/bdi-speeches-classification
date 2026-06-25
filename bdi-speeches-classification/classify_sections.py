@@ -82,9 +82,13 @@ def main() -> None:
     rows: List[dict] = []
     for rec in records:
         doc_id = rec.doc_id
-        text = rec.get("section_text", "")
+        section_title = rec.get("section_title", "")
+        section_text = rec.get("section_text", "")
         title = rec.get("title", "")
         word_count = rec.get("word_count", 0)
+
+        # Prepend section_title to give the classifier useful context
+        text = f"{section_title}\n\n{section_text}" if section_title else section_text
 
         result = classifier.classify(text, choices=categories)
 
